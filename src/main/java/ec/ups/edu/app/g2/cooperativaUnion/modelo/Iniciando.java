@@ -33,18 +33,9 @@ public class Iniciando {
 			eDAO.insertEmpleado(e);
 		}
 	
-		if(eDAO.listarEmpleados().size() == 0) {
-			Empleado e1 =new Empleado();
-			e1.setCedula("0104898722");
-			e1.setNombre("Domenica");
-			e1.setApellido("Muñoz");
-			e1.setCargo("admin");
-			e1.setDireccion("Sayausi");
-			e1.setCorreo("domenica@hotmail.es");
-			e1.setPassword("admin");
-			eDAO.insertEmpleado(e);
+		
 	}
 
 }
 	
-}
+
