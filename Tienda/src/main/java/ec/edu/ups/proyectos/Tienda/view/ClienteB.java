@@ -137,10 +137,10 @@ public class ClienteB implements Serializable {
 				}*/
 				
 			} 
-			}/*else {
+			}else {
 				retorno = "loginCliente?faces-redirect=true";
 
-		}*/
+		}
 
 		return retorno;
 	}
