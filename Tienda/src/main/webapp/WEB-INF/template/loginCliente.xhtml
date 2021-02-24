@@ -32,20 +32,20 @@
 						<div class="form-row">
 							<h:outputLabel value="Correo: " for="correo" />
 							<h:inputText class="form-control"
-								value="#{clienteMB.newcliente.correo}" id="correo" requiered="true" />
+								value="#{clienteB.newcliente.correo}" id="correo" requiered="true" />
 							<h:message for="correo" />
 						</div>
 
 						<div class="form-row">
 							<h:outputLabel value="Clave: " for="clave" />
 							<h:inputText class="form-control"
-								value="#{clienteMB.newcliente.clave}" id="clave" requiered="true" />
+								value="#{clienteB.newcliente.clave}" id="clave" requiered="true" />
 							<h:message for="clave" />
 						</div>
 						
 						<div class="form-row">
 						<h:commandButton class="float-right login_btn" icon="ui-icon-key" value="login"
-							action="#{clienteMB.login()}" />
+							action="#{clienteB.login()}" />
 						</div>
 					</div>
 				</center>

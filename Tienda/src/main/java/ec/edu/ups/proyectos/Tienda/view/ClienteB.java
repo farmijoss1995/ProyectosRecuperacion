@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
+//import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -32,13 +33,14 @@ import ec.edu.ups.proyectos.Tienda.on.TransaccionON;
 
 
 @Named
+//@ConversationScoped
 @ViewScoped
 public class ClienteB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Inject
-	private FacesContext facesContext;
+	//@Inject
+	//private FacesContext facesContext;
 	
 	@Inject
 	private TransaccionON transaccionon;
@@ -51,7 +53,7 @@ public class ClienteB implements Serializable {
 
 	private UIData usersDataTable;
 	
-	
+	private Cliente usuarioLogin ;
 
 	int intento = 1;
 
@@ -67,11 +69,11 @@ public class ClienteB implements Serializable {
 	
 	@PostConstruct
 	public void init() {
-		/*this.newcliente= 
-		this.usuarioLogin=recuperarUsuarioLogin(); 
+		//this.newcliente= 
+		//this.usuarioLogin=recuperarUsuarioLogin(); 
 		newcliente = new Cliente();
 
-		listarClientes();*/
+		//listarClientes();
 	}
 
 	public String agregarCliente() throws Exception {
@@ -92,7 +94,7 @@ public class ClienteB implements Serializable {
 		
 		try {
 			// usuarioon.crearUsuario(usuario);
-			this.transaccionon.crearComentario(newComentario);
+		this.transaccionon.crearComentario(newComentario);
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -114,15 +116,20 @@ public class ClienteB implements Serializable {
 
 	public String login() throws Exception {
 		String retorno = null;
+		System.out.println(newcliente.getCorreo());
 		Cliente clienteLogeado = transaccionon.obtenerClienteLogin(newcliente.getCorreo());
-		Sesion sesion = new Sesion();
-		if (clienteLogeado.getCorreo().equals(newcliente.getCorreo())) {
-			if (clienteLogeado.getClave().equals(newcliente.getClave())) {
-				setUsuarioOK(sesion, clienteLogeado);
-				intento = 1;
+		System.out.println(clienteLogeado.getNombres());
+		
+		//Sesion sesion = new Sesion();
+				if (clienteLogeado.getClave().equals(newcliente.getClave())) {
+					usuarioLogin = clienteLogeado;
+		//	if (clienteLogeado.getClave().equals(newcliente.getClave())) {
+				//setUsuarioOK(sesion, clienteLogeado);
+				//intento = 1;
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("cliente", clienteLogeado);
-				retorno = "cuentasCliente?faces-redirect=true";
-			} else {
+				//retorno = "cuentasCliente?faces-redirect=true";
+				retorno="comentarios?faces-redirect=true";
+		/*	} else {
 				sesion.setCorreo(this.newcliente.getCorreo());
 				sesion.setClave(this.newcliente.getClave());
 				sesion.setEstado("fallido");
@@ -135,11 +142,11 @@ public class ClienteB implements Serializable {
 					//clienteLogeado.setEstado("InAct");
 					//this.clienteon.actualizarCliente(clienteLogeado);
 				}*/
-				
-			} 
+			/*	
+			}
 			}else {
 				retorno = "loginCliente?faces-redirect=true";
-
+*/
 		}
 
 		return retorno;
@@ -155,7 +162,7 @@ public class ClienteB implements Serializable {
 		//this.sesionon.crearSesion(sesion);
 
 	}
-
+	
 	public void clienteInLogin() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		Cliente usuarioLogin = (Cliente) fc.getExternalContext().getSessionMap().get("cliente");
@@ -167,7 +174,9 @@ public class ClienteB implements Serializable {
 		} catch (IOException e) {
 
 		}
-	}
+		
+			
+		}
 	public List<Comentario> listar() {
 		
 		return this.transaccionon.getComentarios();
@@ -176,7 +185,7 @@ public class ClienteB implements Serializable {
 	
 	public String cuentaparm() {
 		//System.out.println("parametro de entrada "+newcuenta.getId());
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("cliente", newcliente.getId());		
+		//FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("cliente", newcliente.getId());		
 		return null;//"transaccionesCuenta?faces-redirect=true";
 	}
 
@@ -184,13 +193,6 @@ public class ClienteB implements Serializable {
 	 * Getteres ansd setters
 	 */
 
-	public FacesContext getFacesContext() {
-		return facesContext;
-	}
-
-	public void setFacesContext(FacesContext facesContext) {
-		this.facesContext = facesContext;
-	}
 
 	public Cliente getNewcliente() {
 		return newcliente;
@@ -214,6 +216,14 @@ public class ClienteB implements Serializable {
 
 	public void setNewSesion(Sesion newSesion) {
 		this.newSesion = newSesion;
+	}
+
+	public Cliente getUsuarioLogin() {
+		return usuarioLogin;
+	}
+
+	public void setUsuarioLogin(Cliente usuarioLogin) {
+		this.usuarioLogin = usuarioLogin;
 	}
 	
 	

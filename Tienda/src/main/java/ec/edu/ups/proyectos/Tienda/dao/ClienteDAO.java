@@ -25,7 +25,7 @@ public class ClienteDAO {
 	 * Injeccion del entity manager
 	 */
 
-	@Inject
+	@PersistenceContext
 	private EntityManager em;
 
 	/**

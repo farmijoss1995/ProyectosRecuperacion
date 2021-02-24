@@ -1,5 +1,6 @@
 package ec.edu.ups.proyectos.Tienda.on;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -13,7 +14,12 @@ import ec.edu.ups.proyectos.Tienda.model.Comentario;
 import ec.edu.ups.proyectos.Tienda.model.Sesion;
 
 @Stateless
-public class TransaccionON {
+public class TransaccionON implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Inject
 	ClienteDAO clientedao;
@@ -35,7 +41,7 @@ public class TransaccionON {
 	
 	
 	public void crearCliente(Cliente cliente) {
-		this.crearCliente(cliente);
+		this.clientedao.crearCliente(cliente);
 		
 	}
 	

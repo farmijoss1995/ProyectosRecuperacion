@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import ec.edu.ups.proyectos.Tienda.model.Comentario;
@@ -16,7 +17,7 @@ public class ComentarioDAO {
 	 * Injeccion del entity manager
 	 */
 
-	@Inject
+	@PersistenceContext
 	private EntityManager em;
 	
 	
@@ -25,7 +26,7 @@ public class ComentarioDAO {
 	}
 	
 	public List<Comentario> getComentarios(){
-		String jpql = "SELECT a FROM Cpmentario a";
+		String jpql = "SELECT a FROM Comentario a";
 		Query query = em.createQuery(jpql, Comentario.class);
 		List<Comentario> comentarios = query.getResultList();
 		return comentarios;

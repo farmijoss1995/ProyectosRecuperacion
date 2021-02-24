@@ -1,8 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
 
 <h:head>
 
@@ -20,13 +21,10 @@
   <link rel="stylesheet" href="template/../dist/css/adminlte.min.css"/>
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"/>
-
-
-
-
-</h:head>
+  
+	<f:event listener="#{clienteB.clienteInLogin()}" type="preRenderView" />
+</h:head> 
 <body class="hold-transition sidebar-mini">
-
 <div class="wrapper">
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -66,7 +64,7 @@
           <img src="template/../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"/>
         </div>
         <div class="info">
-          <a href="#" class="d-block">USUARIO</a>
+          <a href="#" class="d-block"># { clienteB.usuarioLogin.nombres }</a>
 				
         </div>
       </div>
@@ -82,28 +80,32 @@
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-edit"></i>
               <p>
-                Administracion de Comentarios
+                ADMINISTRACION DE COMENTARIOS
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
+            
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="./comentarios.xhtml" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Comentarios</p>
+                  <p>COMENTARIOS</p>
                 </a>
               </li>
+            </ul>
+            
+            <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="./Cliente.xhtml" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Clientes</p>
+                  <p>CREAR CLIENTE</p>
                 </a>
               </li>
-             
-              
-      
-
             </ul>
+            
+              
+
+         
           </li>          
           
         </ul>
@@ -113,96 +115,33 @@
     <!-- /.sidebar -->
   </aside>
 
-	<div class="content-wrapper">
-		<h:form class="form-horizontal form material">
-			<div class="form-group">
-				<label for="txtcedula" class="col-md-12">Cedula:</label>
-				<div class="col-md-10">
-					<h:inputText id="txtcedula" value="#{clienteB.newcliente.cedula}"
-						class="form-control form-control-line" />
-					<h:message for="txtcedula" />
-				</div>
-				<div class="col-md-2">
-					<h:commandButton value="Buscar"
-						action="#{clienteB.buscarClienteCedula()}">
-						<f:ajax render="@form" execute="@form"/>
-						</h:commandButton>
-				</div>
-			</div>
 
-			<div class="form-group">
-				<label for="txtapellidos" class="col-md-12">Apellidos:</label>
-				<div class="col-md-12">
-					<h:inputText id="txtapellidos"
-						value="#{clienteB.newcliente.apellidos}"
-						class="form-control form-control-line" />
-					<h:message for="txtapellidos" />
-				</div>
-			</div>
+<div class="content-wrapper">
+	<div class="card">
+    <h:form id="form">
+        <p:dataTable id="comentarios" var="comentario" value="#{clienteB.listar()}" rowKey="#{comentario.id}"
+                     selection="#{clienteB.newComentario}" selectionMode="single">
+            <f:facet name="header">
+                TABLA DE COMENTARIOS
+            </f:facet>
 
-			<div class="form-group">
-				<label for="txtnombres" class="col-md-12">Nombres:</label>
-				<div class="col-md-12">
-					<h:inputText id="txtnombres" value="#{clienteB.newcliente.nombres}"
-						class="form-control form-control-line" />
-					<h:message for="txtnombres" />
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="txttelefono" class="col-md-12">Telefono:</label>
-				<div class="col-md-12">
-					<h:inputText id="txttelefono" value="#{clienteB.newcliente.telefono}"
-						class="form-control form-control-line" />
-					<h:message for="txttelefono" />
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="txtcorreo" class="col-md-12">Correo:</label>
-				<div class="col-md-12">
-					<h:inputText id="txtcorreo" value="#{clienteB.newcliente.correo}"
-						class="form-control form-control-line" />
-					<h:message for="txtcorreo" />
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="txtclave" class="col-md-12">Clave:</label>
-				<div class="col-md-12">
-					<h:inputText id="txtclave" value="#{clienteB.newcliente.clave}"
-						class="form-control form-control-line" />
-					<h:message for="txtclave" />
-				</div>
-			</div>
-			
-			<div class="form-row">
-					<h:outputLabel for="Estado" value="Estado" />
-					<h:selectOneMenu id="Estado" value="#{clienteB.newcliente.estado}"
-						required="true" label="Estado" class="form-control select2">
-						<f:selectItem itemLabel="Seleccione" itemValue="Selecione" />
-						<f:selectItem itemLabel="Activo" itemValue="Act" />
-						<f:selectItem itemLabel="Inactivo" itemValue="InAct" />
-					</h:selectOneMenu>
-					<h:message for="Rol" />
-
-				</div>
-
-			<div class="form-group">
-				<div class="col-sm-6">
-				
-					<h:commandButton value="Registar Cliente"
-						action="#{clienteB.agregarCliente()}" >
-
-						</h:commandButton>
-				</div>
-				
-			</div>
-
-			
-			
-		</h:form>
-	</div>
+            <p:column headerText="# COMENTARIO">
+                <h:outputText value="#{comentario.id}" />
+            </p:column>
+            <p:column headerText="DESCRIPCION">
+                <h:outputText value="#{comentario.descripcion}" />
+            </p:column>
+            <p:column headerText="Cliente">
+                <h:outputText value="#{comentario.cliente.nombres}" />
+            </p:column>
+           
+        </p:dataTable>
+        
+          
+    </h:form>
 </div>
+</div>
+	</div>
 
 <!-- jQuery -->
 <script src="template/../plugins/jquery/jquery.min.js"></script>
@@ -261,6 +200,5 @@ $(document).ready(function () {
   });
 });
 </script>
-
 </body>
 </html>

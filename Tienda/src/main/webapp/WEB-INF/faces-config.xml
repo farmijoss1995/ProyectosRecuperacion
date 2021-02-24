@@ -13,7 +13,6 @@ Note: upgrading to JSF 2.3 will cause currently deployment errors if the web pro
         http://xmlns.jcp.org/xml/ns/javaee
         http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
 
-
    <!-- This descriptor activates the JSF Servlet -->
 
    <!-- Write your navigation rules here. You are encouraged to use CDI for
