@@ -12,6 +12,8 @@ import ec.edu.ups.proyectos.Tienda.dao.SesionDAO;
 import ec.edu.ups.proyectos.Tienda.model.Cliente;
 import ec.edu.ups.proyectos.Tienda.model.Comentario;
 import ec.edu.ups.proyectos.Tienda.model.Sesion;
+import ec.edu.ups.proyectos.Tienda.service.Respuesta;
+import ec.edu.ups.proyectos.Tienda.view.UsuarioSesion;
 
 @Stateless
 public class TransaccionON implements Serializable{
@@ -29,6 +31,31 @@ public class TransaccionON implements Serializable{
 
 	@Inject
 	SesionDAO sesiondao;
+	
+	public Respuesta clienteLogIn(UsuarioSesion usuarioSesion) throws Exception{
+		System.out.println("usuario sesion"+usuarioSesion.toString());
+		Respuesta respuesta= new Respuesta();
+		Cliente  cliente=this.clientedao.clienteLogIn(usuarioSesion);
+		System.out.println(cliente.getCorreo());
+		if (cliente.getCorreo().equals(usuarioSesion.getCorreo()) && 
+				cliente.getClave().equals(usuarioSesion.getClave())) 
+				
+				{
+			respuesta.setCodigo(200);
+			respuesta.setMensaje("ok");
+		}else  {
+			respuesta.setCodigo(500);
+			respuesta.setMensaje("Credenciales incorrectas");
+		}
+		
+		
+		return respuesta;
+	}
+
+	
+	public void clienteBuscarcliente (Cliente cliente){
+		
+	}
 	
 	
 	public void crearSesion(Sesion sesion) {

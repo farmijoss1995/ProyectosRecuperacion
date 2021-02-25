@@ -11,6 +11,7 @@ import javax.sound.midi.MidiSystem;
 
 import ec.edu.ups.proyectos.Tienda.model.Cliente;
 import ec.edu.ups.proyectos.Tienda.model.Sesion;
+import ec.edu.ups.proyectos.Tienda.view.UsuarioSesion;
 
 
 /**
@@ -37,6 +38,24 @@ public class ClienteDAO {
 		em.persist(cliente);
 	}
 
+	public Cliente clienteLogIn(UsuarioSesion usuarioSesion) {
+		System.out.println("Cliente DAO    " +usuarioSesion.toString());
+		Cliente cl= this.buscarClienteCorreo(usuarioSesion.getCorreo());
+		try {
+			String jpql = "SELECT c FROM Cliente c WHERE c.correo = :correo AND c.clave = :clave";
+			
+			Query q = em.createQuery(jpql, Cliente.class);
+			q.setParameter("correo", cl.getCorreo());
+			q.setParameter("clave", cl.getClave());
+			cl = (Cliente) q.getSingleResult();
+			System.out.println("Cliente ======>>>>>> "+cl.getCorreo());
+			
+		} catch (Exception e) {
+			System.out.println("<========ERROR  ClienteDAO  ClIENTE OGIN ======>>>>>>");
+			cl = null;
+		}
+		return cl;
+	}
 
 
 	/**
